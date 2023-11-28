@@ -276,7 +276,9 @@ int main() {
     genann *ann = genann_init(16 * 16 * 4, 16, 16 * 4, 16 * 16 * 4);
 
 	printf("we do a bit of training ...\n");
-    for (int iterations = 0; iterations < 100; iterations++) {
+	#pragma omp parallel for
+    for (int iterations = 0; iterations < 1000; iterations++) {
+			#pragma omp parallel for
         	for (unsigned int i = 0; i < lengthof(input); i++)
             	genann_train(ann, input[i], output[i], 3);
     }
